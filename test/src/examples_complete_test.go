@@ -96,7 +96,7 @@ func TestExamplesCluster(t *testing.T) {
 		Vars: map[string]interface{}{
 			// We also can see how lists and maps translate between terratest and terraform.
 			"slack_url": slack_url,
-			"region": region,
+			"region":    region,
 		},
 
 		// Disable colors to parse stdout/stderr

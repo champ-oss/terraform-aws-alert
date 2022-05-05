@@ -22,4 +22,5 @@ module "this" {
   log_group_name = aws_cloudwatch_log_group.this.name
   name           = "terraform-aws-alert"
   slack_url      = var.slack_url
+  region         = var.region
 }
