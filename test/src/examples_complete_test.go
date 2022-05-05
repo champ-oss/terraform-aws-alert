@@ -86,6 +86,7 @@ func TestExamplesCluster(t *testing.T) {
 
 	region := "us-east-1"
 	slack_url := os.Getenv("SLACK_URL")
+	assert.NotEmpty(t, slack_url)
 
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 
@@ -94,8 +95,7 @@ func TestExamplesCluster(t *testing.T) {
 
 		Vars: map[string]interface{}{
 			// We also can see how lists and maps translate between terratest and terraform.
-			"SLACK_URL": slack_url,
-			"REGION":    region,
+			"slack_url": slack_url,
 		},
 
 		// Disable colors to parse stdout/stderr

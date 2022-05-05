@@ -21,13 +21,13 @@ resource "random_string" "identifier" {
 }
 
 module "this" {
-  source                 = "github.com/champ-oss/terraform-aws-lambda.git?ref=v1.0.2-7160ffc"
-  git                    = var.git
-  name                   = "${var.name}-${random_string.identifier.result}"
-  tags                   = merge(local.tags, var.tags)
-  runtime                = "python3.8"
-  handler                = "cloudwatch_slack.lambda_handler"
-  filename               = data.archive_file.lambda_zip.output_path
+  source   = "github.com/champ-oss/terraform-aws-lambda.git?ref=v1.0.2-7160ffc"
+  git      = var.git
+  name     = "${var.name}-${random_string.identifier.result}"
+  tags     = merge(local.tags, var.tags)
+  runtime  = "python3.8"
+  handler  = "cloudwatch_slack.lambda_handler"
+  filename = data.archive_file.lambda_zip.output_path
   environment = {
     SLACK_URL = var.slack_url
     REGION    = var.region
