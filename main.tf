@@ -28,7 +28,6 @@ module "this" {
   runtime                = "python3.8"
   handler                = "cloudwatch_slack.lambda_handler"
   filename               = data.archive_file.lambda_zip.output_path
-  enable_lambda_cw_alert = false # this must be disabled to prevent an infinite recursive loop
   environment = {
     SLACK_URL = var.slack_url
     REGION    = var.region
