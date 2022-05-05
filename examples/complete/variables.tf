@@ -9,3 +9,8 @@ variable "slack_url" {
   type        = string
 }
 
+variable "region" {
+  description = "region of cloudwatch alarm. only used for console url"
+  type        = string
+}
+

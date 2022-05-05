@@ -84,7 +84,7 @@ func createLogEvent(session *session.Session, region string) {
 func TestExamplesCluster(t *testing.T) {
 	t.Parallel()
 
-	region := "us-east-1"
+	region := os.Getenv("AWS_DEFAULT_REGION")
 	slack_url := os.Getenv("SLACK_URL")
 	assert.NotEmpty(t, slack_url)
 
@@ -96,6 +96,7 @@ func TestExamplesCluster(t *testing.T) {
 		Vars: map[string]interface{}{
 			// We also can see how lists and maps translate between terratest and terraform.
 			"slack_url": slack_url,
+			"region": region,
 		},
 
 		// Disable colors to parse stdout/stderr
