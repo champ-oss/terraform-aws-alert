@@ -87,6 +87,10 @@ func TestExamplesCluster(t *testing.T) {
 	region := os.Getenv("AWS_DEFAULT_REGION")
 	slack_url := os.Getenv("SLACK_URL")
 	assert.NotEmpty(t, slack_url)
+	logger.Log(t, "checking region 2")
+	assert.Equal(t, "us-east-2", region)
+	logger.Log(t, "checking region 1")
+	assert.Equal(t, "us-east-1", region)
 
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 
