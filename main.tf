@@ -7,9 +7,10 @@ locals {
 }
 
 data "archive_file" "lambda_zip" {
-  type        = "zip"
-  source_dir  = "${path.module}/python-lambda"
-  output_path = "cloudwatch_slack.zip"
+  type             = "zip"
+  output_file_mode = "0666"
+  source_file      = "${path.module}/cloudwatch_slack.py"
+  output_path      = "${path.module}/cloudwatch_slack.zip"
 }
 
 resource "random_string" "identifier" {
