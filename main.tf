@@ -8,7 +8,7 @@ locals {
 
 data "archive_file" "lambda_zip" {
   type        = "zip"
-  source_dir  = "${path.module}/python-lambda"
+  source_file  = "python-lambda/cloudwatch_slack.py"
   output_path = "cloudwatch_slack.zip"
 }
 
