@@ -21,7 +21,6 @@ env:
   MONGODB_ATLAS_ORG: ${{ secrets.MONGODB_ATLAS_ORG }}
   SLACK_URL: ${{ secrets.SLACK_URL }}
 
-
 defaults:
   run:
     shell: bash
