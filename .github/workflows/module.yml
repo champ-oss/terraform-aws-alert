@@ -78,6 +78,7 @@ jobs:
           JIRA_TOKEN: ${{ secrets.JIRA_TOKEN }}
           JIRA_HOST: ${{ secrets.JIRA_HOST }}
           JIRA_PROJECT: CTEST
+          JIRA_REPO: ${{ env.JIRA_REPO }}
 
 
 
