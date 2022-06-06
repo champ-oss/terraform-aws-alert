@@ -70,7 +70,6 @@ jobs:
 
       - uses: champ-oss/jira-notification@develop
         with:
-          token: ${{ secrets.ACTION_TOKEN }}
           JIRA_REPO: terraform-aws-alert
           JIRA_PROJECT: CTEST
           JIRA_TOKEN: ${{ secrets.JIRA_TOKEN }}
