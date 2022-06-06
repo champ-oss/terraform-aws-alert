@@ -78,8 +78,7 @@ jobs:
           JIRA_TOKEN: ${{ secrets.JIRA_TOKEN }}
           JIRA_HOST: ${{ secrets.JIRA_HOST }}
           JIRA_PROJECT: CTEST
-        run: |
-          export JIRA_REPO=`echo ${GITHUB_REPOSITORY} | sed -e 's|.*/||'`
+          JIRA_REPO: ${GITHUB_REPOSITORY}
 
 
 
