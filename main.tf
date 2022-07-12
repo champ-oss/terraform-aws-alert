@@ -18,7 +18,7 @@ resource "random_string" "identifier" {
   special = false
   upper   = false
   lower   = true
-  number  = false
+  numeric = false
 }
 
 module "this" {
