@@ -38,5 +38,8 @@ Summary: AWS Lambda function written in python post slack message when there is 
 
 * look at examples/basic/main.tf for example
 
+<!-- BEGIN_TF_DOCS -->
+<!-- END_TF_DOCS -->
+
 ## Project Status
 Project is: _in_progress_ 
