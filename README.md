@@ -55,7 +55,7 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_this"></a> [this](#module\_this) | github.com/champ-oss/terraform-aws-lambda.git | v1.0.70-697b9b7 |
+| <a name="module_this"></a> [this](#module\_this) | github.com/champ-oss/terraform-aws-lambda.git | v1.0.71-2e2e648 |
 
 ## Resources
 
