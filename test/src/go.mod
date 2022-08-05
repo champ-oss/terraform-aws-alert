@@ -3,7 +3,7 @@ module github.com/champtitles/terraform-aws-alert
 go 1.17
 
 require (
-	github.com/aws/aws-sdk-go v1.44.57
+	github.com/aws/aws-sdk-go v1.44.70
 	github.com/gruntwork-io/terratest v0.40.18
 	github.com/stretchr/testify v1.7.5
 
