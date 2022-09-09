@@ -64,7 +64,7 @@ func createLogEvent(session *session.Session, region string) {
 	logGroupName := "terraform-aws-alert/test"
 	logStreamName := "ecs/this/my-log-stream"
 	logStreamInput := cloudwatchlogs.CreateLogStreamInput{LogGroupName: &logGroupName, LogStreamName: &logStreamName}
-	svc.CreateLogStream(&logStreamInput)
+	_, _ = svc.CreateLogStream(&logStreamInput)
 
 	logEvents := make([]*cloudwatchlogs.InputLogEvent, 0)
 
@@ -81,11 +81,11 @@ func createLogEvent(session *session.Session, region string) {
 	fmt.Print("Next Token: {}", resp.NextSequenceToken)
 }
 
-func TestExamplesCluster(t *testing.T) {
+func TestExamplesComplete(t *testing.T) {
 	t.Parallel()
 
 	region := "us-east-1"
-	slack_url := os.Getenv("SLACK_URL")
+	slackUrl := os.Getenv("SLACK_URL")
 
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 
@@ -94,7 +94,7 @@ func TestExamplesCluster(t *testing.T) {
 
 		Vars: map[string]interface{}{
 			// We also can see how lists and maps translate between terratest and terraform.
-			"slack_url": slack_url,
+			"slack_url": slackUrl,
 			"region":    region,
 		},
 
