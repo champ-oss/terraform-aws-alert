@@ -50,12 +50,10 @@ def lambda_handler(event, context):
             'value': logEvent['message'],
             'short': False,
          }, {
-            'title': 'Alternative Filter Link (BETA)',
-            'value': "https://console.aws.amazon.com/cloudwatch/home?" + region + "#logsV2:log-groups/log-group/" + log_group_escaped + "/log-events/" + log_stream_escaped + "$3FfilterPattern$3D$26start$3D" + log_timestamp_start + "$26end$3D" + log_timestamp_endtime,
+            'title': 'Link to Error',
+            'title_link': "https://console.aws.amazon.com/cloudwatch/home?" + region + "#logsV2:log-groups/log-group/" + log_group_escaped + "/log-events/" + log_stream_escaped + "$3FfilterPattern$3D$26start$3D" + log_timestamp_start + "$26end$3D" + log_timestamp_endtime,
             'short': False,
          }],
-         "title": "Link to Error",
-         "title_link": "https://console.aws.amazon.com/cloudwatch/home?" + region + "#logsV2:log-groups/log-group/" + log_group_escaped + "/log-events/" + log_stream_escaped,
        }],
        }
        encoded_msg = json.dumps(msg).encode('utf-8')
