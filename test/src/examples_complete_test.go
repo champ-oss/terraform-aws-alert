@@ -9,6 +9,7 @@ import (
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/assert"
 	"os"
+	"strings"
 	"testing"
 	"time"
 )
@@ -122,9 +123,18 @@ func TestExamplesComplete(t *testing.T) {
 	outputLogs := GetLogs(awsSess, region, cloudwatchLogGroup, actualLogStreamName)
 
 	logger.Log(t, "checking logs for ERROR")
-	assert.NotContains(t, "ERROR", *outputLogs[1].Message)
+	for _, message := range outputLogs {
+		assert.NotContains(t, "ERROR", *message.Message)
+	}
 
 	logger.Log(t, "checking message in log stream for expected value")
 	expectedResponse := "{'status_code': 200, 'response': 'ok'}\n"
-	assert.Contains(t, expectedResponse, *outputLogs[1].Message)
+	foundResponse := false
+	for _, message := range outputLogs {
+		if strings.Contains(*message.Message, expectedResponse) {
+			foundResponse = true
+			break
+		}
+	}
+	assert.True(t, foundResponse)
 }
