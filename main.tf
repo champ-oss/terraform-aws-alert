@@ -22,7 +22,7 @@ resource "random_string" "identifier" {
 }
 
 module "this" {
-  source           = "github.com/champ-oss/terraform-aws-lambda.git?ref=v1.0.115-77403a9"
+  source           = "github.com/champ-oss/terraform-aws-lambda.git?ref=v1.0.124-ceef10f"
   git              = var.git
   name             = "${var.name}-${random_string.identifier.result}"
   tags             = merge(local.tags, var.tags)
