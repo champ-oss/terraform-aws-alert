@@ -25,11 +25,16 @@ module "this" {
 }
 
 output "cloudwatch_log_group" {
-  description = "log group name"
+  description = "log group name for test messages"
   value       = aws_cloudwatch_log_group.this.name
 }
 
 output "cloudwatch_log_stream" {
-  description = "log stream name"
+  description = "log stream name for test messages"
   value       = aws_cloudwatch_log_stream.this.name
+}
+
+output "alert_cloudwatch_log_group" {
+  description = "log group name for alert module function"
+  value       = module.this.cloudwatch_log_group
 }
