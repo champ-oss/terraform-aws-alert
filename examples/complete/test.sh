@@ -7,4 +7,4 @@ aws logs put-log-events \
 
 sleep 30
 
-aws logs tail group_name $ALERT_CLOUDWATCH_LOG_GROUP
+aws logs tail $ALERT_CLOUDWATCH_LOG_GROUP
