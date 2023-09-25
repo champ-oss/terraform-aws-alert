@@ -7,7 +7,5 @@ aws logs put-log-events \
 
 sleep 30
 
-ALERT_LOGS=$(aws logs tail --since 30m $ALERT_CLOUDWATCH_LOG_GROUP)
-echo $ALERT_LOGS
-echo $ALERT_LOGS | grep -vi error
-echo $ALERT_LOGS | grep -i "{'status_code': 200, 'response': 'ok'}"
+aws logs tail $ALERT_CLOUDWATCH_LOG_GROUP | grep -vi error
+aws logs tail $ALERT_CLOUDWATCH_LOG_GROUP | grep -i "{'status_code': 200, 'response': 'ok'}"
