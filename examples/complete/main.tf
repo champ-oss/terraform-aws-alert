@@ -1,26 +1,40 @@
-locals {
-  tags = {
-    cost    = "shared"
-    creator = "terraform"
-    git     = var.git
-  }
-}
+data "aws_region" "this" {}
 
-provider "aws" {
-  region = "us-east-1"
+variable "slack_url" {
+  description = "Slack URL for testing"
+  type        = string
 }
 
 resource "aws_cloudwatch_log_group" "this" {
-  name              = "${var.git}/test"
+  name              = "terraform-aws-alert/test"
   retention_in_days = 5
-  tags              = local.tags
+}
+
+resource "aws_cloudwatch_log_stream" "this" {
+  name           = "Test"
+  log_group_name = aws_cloudwatch_log_group.this.name
 }
 
 module "this" {
   source         = "../../"
-  git            = var.git
+  git            = "terraform-aws-alert"
   log_group_name = aws_cloudwatch_log_group.this.name
   name           = "terraform-aws-alert"
   slack_url      = var.slack_url
-  region         = var.region
+  region         = data.aws_region.this.name
+}
+
+output "cloudwatch_log_group" {
+  description = "log group name for test messages"
+  value       = aws_cloudwatch_log_group.this.name
+}
+
+output "cloudwatch_log_stream" {
+  description = "log stream name for test messages"
+  value       = aws_cloudwatch_log_stream.this.name
+}
+
+output "alert_cloudwatch_log_group" {
+  description = "log group name for alert module function"
+  value       = module.this.cloudwatch_log_group
 }
