@@ -27,82 +27,132 @@ def lambda_handler(event, context):
        log_timestamp_start = str(logEvent['timestamp'])
        log_timestamp_endtime = str(logEvent['timestamp'] + 60000)
        msg = {
-       'blocks': [
-            {
-       			"type": "header",
-       			"text": {
-       				"type": "plain_text",
-       				"text": payload['logGroup'] + ":  ERROR reported",
-       				"emoji": true
-       			}
-            },
-            {
-            			"type": "section",
-            			"fields": [
-            				{
-            					"type": "plain_text",
-            					"text": "Time:"
-            				},
-            				{
-            					"type": "plain_text",
-            					"text": logEvent['timestamp']
-            				},
-            				{
-            					"type": "plain_text",
-            					"text": "Account"
-            				},
-            				{
-            					"type": "plain_text",
-            					"text": payload['owner']
-            				},
-            				{
-            					"type": "plain_text",
-            					"text": "Log Group"
-            				},
-            				{
-                                "type": "plain_text",
-                                "text": payload['logGroup']
-                            },
-                            {
-                                "type": "plain_text",
-                                "text": "Log Stream"
-                            },
-                            {
-                                "type": "plain_text",
-                                "text": payload['logStream']
-                            },
-            			]
-            },
-            {
-            			"type": "section",
-            			"text": {
-            				"type": "plain_text",
-            				"text": "Log Error"
-            			}
-            },
-            {
-            			"type": "section",
-            			"text": {
-            				"type": "plain_text",
-            				"text": logEvent['message']
-            			}
-            },
-            {
-			    "type": "section",
-			    "text": {
-				    "type": "mrkdwn",
-				    "text": "<https://console.aws.amazon.com/cloudwatch/home?" + region + "#logsV2:log-groups/log-group/" + log_group_escaped + "/log-events/" + log_stream_escaped + "$3FfilterPattern$3D$26start$3D" + log_timestamp_start + "$26end$3D" + log_timestamp_endtime|Link to Error>"
-			     }
-		    },
-            {
-			    "type": "section",
-			    "text": {
-				    "type": "mrkdwn",
-				    "text": "<https://console.aws.amazon.com/cloudwatch/home?" + region + "#logsV2:log-groups/log-group/arn$253Aaws$253Alogs$253A" + region + "$253A" + payload['owner'] + "$253Alog-group$253A" + log_group_escaped + "/log-events/" + log_stream_escaped + "$3FfilterPattern$3D$26start$3D" + log_timestamp_start + "$26end$3D" + log_timestamp_endtime|Link to Centralized Logging>
-			     }
-		    }
-       ]
-      }
+             	"blocks": [
+             		{
+             			"type": "header",
+             			"text": {
+             				"type": "plain_text",
+             				"text": payload['logGroup'] + ":  ERROR reported",
+             			}
+             		},
+             		{
+             			"type": "rich_text",
+             			"elements": [
+             				{
+             					"type": "rich_text_list",
+             					"style": "bullet",
+             					"elements": [
+             						{
+             							"type": "rich_text_section",
+             							"elements": [
+             								{
+             									"type": "text",
+             									"text": "Time: "
+             								},
+             								{
+             									"type": "text",
+             									"text": logEvent['timestamp'],
+             								}
+             							]
+             						},
+             						{
+             							"type": "rich_text_section",
+             							"elements": [
+             								{
+             									"type": "text",
+             									"text": "Account: "
+             								},
+             								{
+             									"type": "text",
+             									"text": payload['owner']
+             								}
+             							]
+             						},
+             						{
+             							"type": "rich_text_section",
+             							"elements": [
+             								{
+             									"type": "text",
+             									"text": "Log Group: "
+             								},
+             								{
+             									"type": "text",
+             									"text": payload['logGroup'],
+             								}
+             							]
+             						},
+             						{
+             							"type": "rich_text_section",
+             							"elements": [
+             								{
+             									"type": "text",
+             									"text": "Log Stream: "
+             								},
+             								{
+             									"type": "text",
+             									"text": payload['logStream'],
+             								}
+             							]
+             						},
+             						{
+             							"type": "rich_text_section",
+             							"elements": [
+             								{
+             									"type": "link",
+             									"url": "https://console.aws.amazon.com/cloudwatch/home?" + region + "#logsV2:log-groups/log-group/" + log_group_escaped + "/log-events/" + log_stream_escaped + "$3FfilterPattern$3D$26start$3D" + log_timestamp_start + "$26end$3D" + log_timestamp_endtime,
+             									"text": "Link to Error",
+             									"style": {
+             										"bold": true
+             									}
+             								}
+             							]
+             						},
+             						{
+             							"type": "rich_text_section",
+             							"elements": [
+             								{
+             									"type": "link",
+             									"url": "<https://console.aws.amazon.com/cloudwatch/home?" + region + "#logsV2:log-groups/log-group/arn$253Aaws$253Alogs$253A" + region + "$253A" + payload['owner'] + "$253Alog-group$253A" + log_group_escaped + "/log-events/" + log_stream_escaped + "$3FfilterPattern$3D$26start$3D" + log_timestamp_start + "$26end$3D" + log_timestamp_endtime,
+             									"text": "Link to Centralized Logging Error",
+             									"style": {
+             										"bold": true
+             									}
+             								}
+             							]
+             						}
+             					]
+             				}
+             			]
+             		},
+             		{
+             			"type": "divider"
+             		},
+             		{
+             			"type": "rich_text",
+             			"elements": [
+             				{
+             					"type": "rich_text_section",
+             					"elements": [
+             						{
+             							"type": "text",
+             							"text": "Log Error",
+             							"style": {
+             								"bold": true
+             							}
+             						}
+             					]
+             				}
+             			]
+             		},
+             		{
+             			"type": "section",
+             			"text": {
+             				"type": "plain_text",
+             				"text": "long message is here you"
+             			}
+             		}
+             	]
+             }
 
        encoded_msg = json.dumps(msg).encode('utf-8')
        resp = http.request('POST',url, body=encoded_msg)
