@@ -132,9 +132,6 @@ def lambda_handler(event, context):
                                 {
                                     "type": "text",
                                     "text": "Log Error",
-                                    "style": {
-                                        "bold": true
-                                    }
                                 }
                             ]
                         }
