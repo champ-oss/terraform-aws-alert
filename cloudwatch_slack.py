@@ -5,6 +5,10 @@ import boto3
 import urllib3
 import gzip
 import base64
+import logging
+
+log = logging.getLogger()
+log.setLevel(logging.DEBUG)
 
 # Lambda global variables
 slack_url = os.environ["SLACK_URL"]
@@ -148,8 +152,9 @@ def lambda_handler(event, context):
                 }
             ]
         }
-        print(msg)
-    encoded_msg = json.dumps(msg).encode('utf-8')
+        log.debug(msg)
+        encoded_msg = json.dumps(msg).encode('utf-8')
+        log.debug(encoded_msg)
     resp = http.request('POST', url, body=encoded_msg)
     print({
         "status_code": resp.status,

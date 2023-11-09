@@ -9,3 +9,5 @@ sleep 30
 
 aws logs tail $ALERT_CLOUDWATCH_LOG_GROUP | grep -vi error
 aws logs tail $ALERT_CLOUDWATCH_LOG_GROUP | grep -i "{'status_code': 200, 'response': 'ok'}"
+
+sleep 300
