@@ -50,11 +50,9 @@ def lambda_handler(event, context):
             'value': logEvent['message'],
             'short': False,
          }, {
-            'title': 'Link to Error',
             'value': "<https://console.aws.amazon.com/cloudwatch/home?" + region + "#logsV2:log-groups/log-group/" + log_group_escaped + "/log-events/" + log_stream_escaped + "$3FfilterPattern$3D$26start$3D" + log_timestamp_start + "$26end$3D" + log_timestamp_endtime + "|Link to Error>",
             'short': False,
          }, {
-            'title': 'Monitoring Account Link to Error',
             'value': "<https://console.aws.amazon.com/cloudwatch/home?" + region + "#logsV2:log-groups/log-group/arn$253Aaws$253Alogs$253A" + region + "$253A" + payload['owner'] + "$253Alog-group$253A" + log_group_escaped + "/log-events/" + log_stream_escaped + "$3FfilterPattern$3D$26start$3D" + log_timestamp_start + "$26end$3D" + log_timestamp_endtime + "|Link to Centralized Account Error>",
             'short': False
          }],
