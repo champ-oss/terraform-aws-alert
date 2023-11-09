@@ -150,7 +150,6 @@ def lambda_handler(event, context):
                     }
                 }
             ]
-        log.debug(msg)
         encoded_msg = json.dumps(msg)
         log.debug(encoded_msg)
     resp = http.request('POST', url, body=encoded_msg)
