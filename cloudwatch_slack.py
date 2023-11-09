@@ -32,8 +32,7 @@ def lambda_handler(event, context):
         log_stream_escaped = log_stream_name.replace('/', '$252F')
         log_timestamp_start = str(logEvent['timestamp'])
         log_timestamp_endtime = str(logEvent['timestamp'] + 60000)
-        msg = {
-            "blocks": [
+        msg = [
                 {
                     "type": "header",
                     "text": {
@@ -151,7 +150,6 @@ def lambda_handler(event, context):
                     }
                 }
             ]
-        }
         log.debug(msg)
         encoded_msg = json.dumps(msg)
         log.debug(encoded_msg)
