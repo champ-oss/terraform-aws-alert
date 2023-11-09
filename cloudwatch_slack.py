@@ -111,7 +111,9 @@ def lambda_handler(event, context):
                                     "elements": [
                                         {
                                             "type": "link",
-                                            "url": "https://console.aws.amazon.com/cloudwatch/home?" + region + "#logsV2:log-groups/log-group/arn$253Aaws$253Alogs$253A" + region + "$253A" + payload['owner'] + "$253Alog-group$253A" + log_group_escaped + "/log-events/" + log_stream_escaped + "$3FfilterPattern$3D$26start$3D" + log_timestamp_start + "$26end$3D" + log_timestamp_endtime,
+                                            "url": "https://console.aws.amazon.com/cloudwatch/home?" + region + "#logsV2:log-groups/log-group/arn$253Aaws$253Alogs$253A" + region + "$253A" +
+                                                   payload[
+                                                       'owner'] + "$253Alog-group$253A" + log_group_escaped + "/log-events/" + log_stream_escaped + "$3FfilterPattern$3D$26start$3D" + log_timestamp_start + "$26end$3D" + log_timestamp_endtime,
                                             "text": "Link to Centralized Logging Error"
                                         }
                                     ]
@@ -146,11 +148,10 @@ def lambda_handler(event, context):
                 }
             ]
         }
-
-        encoded_msg = json.dumps(msg).encode('utf-8')
-        resp = http.request('POST', url, body=encoded_msg)
-
-        print({
-            "status_code": resp.status,
-            "response": str(resp.data, "utf-8")
-        })
+        print(msg)
+    encoded_msg = json.dumps(msg).encode('utf-8')
+    resp = http.request('POST', url, body=encoded_msg)
+    print({
+        "status_code": resp.status,
+        "response": str(resp.data, "utf-8")
+    })
