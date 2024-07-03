@@ -5,3 +5,8 @@ resource "aws_cloudwatch_log_subscription_filter" "this" {
   filter_pattern  = var.filter_pattern
   destination_arn = module.this[0].arn
 }
+
+moved {
+  from = aws_cloudwatch_log_subscription_filter.this
+  to   = aws_cloudwatch_log_subscription_filter.this[0]
+}

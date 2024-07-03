@@ -14,6 +14,11 @@ data "archive_file" "lambda_zip" {
   output_path      = "${path.module}/cloudwatch_slack.zip"
 }
 
+moved {
+  from = data.archive_file.lambda_zip
+  to   = data.archive_file.lambda_zip[0]
+}
+
 resource "random_string" "identifier" {
   count   = var.enabled ? 1 : 0
   length  = 5
@@ -23,8 +28,12 @@ resource "random_string" "identifier" {
   numeric = false
 }
 
+moved {
+  from = random_string.identifier
+  to   = random_string.identifier[0]
+}
+
 module "this" {
-  count            = var.enabled ? 1 : 0
   source           = "github.com/champ-oss/terraform-aws-lambda.git?ref=v1.0.142-273b055"
   git              = var.git
   name             = "${var.name}-${random_string.identifier[0].result}"
@@ -45,4 +54,9 @@ resource "aws_lambda_permission" "this" {
   action        = "lambda:InvokeFunction"
   function_name = module.this[0].arn
   principal     = "logs.${var.region}.amazonaws.com"
+}
+
+moved {
+  from = aws_lambda_permission.this
+  to   = aws_lambda_permission.this[0]
 }
