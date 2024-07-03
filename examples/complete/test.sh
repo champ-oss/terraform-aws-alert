@@ -7,6 +7,7 @@ aws logs put-log-events \
 
 sleep 30
 
-if [${module_enabled} == false]; then
+if [ $module_enabled == false ]; then
   aws logs tail $ALERT_CLOUDWATCH_LOG_GROUP | grep -vi error
   aws logs tail $ALERT_CLOUDWATCH_LOG_GROUP | grep -i "{'status_code': 200, 'response': 'ok'}"
+fi
