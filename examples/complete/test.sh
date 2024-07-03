@@ -11,5 +11,5 @@ set -e
     aws logs tail $ALERT_CLOUDWATCH_LOG_GROUP | grep -vi error
     aws logs tail $ALERT_CLOUDWATCH_LOG_GROUP | grep -i "{'status_code': 200, 'response': 'ok'}"
   else
-    echo "Module is disabled, no resources created
+    echo "Module is disabled, no resources created"
   fi
