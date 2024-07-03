@@ -43,6 +43,6 @@ resource "aws_lambda_permission" "this" {
   count         = var.module_enabled ? 1 : 0
   statement_id  = "AllowCloudwatchToSlackTrigger"
   action        = "lambda:InvokeFunction"
-  function_name = module.this.arn
+  function_name = module.this[0].arn
   principal     = "logs.${var.region}.amazonaws.com"
 }
