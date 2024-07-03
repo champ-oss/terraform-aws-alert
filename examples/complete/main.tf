@@ -61,10 +61,10 @@ output "cloudwatch_log_stream" {
 
 output "alert_cloudwatch_log_group" {
   description = "log group name for alert module function"
-  value       = var.module_enabled? module.this.cloudwatch_log_group : ""
+  value       = var.module_enabled ? module.this.cloudwatch_log_group : ""
 }
 
 output "module_enabled" {
   description = "module enabled"
-  value       = module.this.module_enabled
+  value       = var.module_enabled
 }
