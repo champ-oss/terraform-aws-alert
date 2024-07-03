@@ -13,4 +13,3 @@ set -e
   else
     echo "Module is disabled"
   fi
-
