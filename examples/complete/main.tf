@@ -23,6 +23,12 @@ variable "slack_url" {
   type        = string
 }
 
+variable "module_enabled" {
+  description = "module enabled"
+  type        = bool
+  default     = false
+}
+
 resource "aws_cloudwatch_log_group" "this" {
   name              = "terraform-aws-alert/test"
   retention_in_days = 5
@@ -40,6 +46,7 @@ module "this" {
   name           = "terraform-aws-alert"
   slack_url      = var.slack_url
   region         = data.aws_region.this.name
+  module_enabled = var.module_enabled
 }
 
 output "cloudwatch_log_group" {

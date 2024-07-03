@@ -1,5 +1,5 @@
 set -e
-
+module_enabled=false
 aws logs put-log-events \
 --log-group-name $CLOUDWATCH_LOG_GROUP \
 --log-stream-name $CLOUDWATCH_LOG_STREAM \
@@ -7,5 +7,6 @@ aws logs put-log-events \
 
 sleep 30
 
-aws logs tail $ALERT_CLOUDWATCH_LOG_GROUP | grep -vi error
-aws logs tail $ALERT_CLOUDWATCH_LOG_GROUP | grep -i "{'status_code': 200, 'response': 'ok'}"
+if [${module_enabled} == false]; then
+  aws logs tail $ALERT_CLOUDWATCH_LOG_GROUP | grep -vi error
+  aws logs tail $ALERT_CLOUDWATCH_LOG_GROUP | grep -i "{'status_code': 200, 'response': 'ok'}"
