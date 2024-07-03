@@ -7,7 +7,7 @@ locals {
 }
 
 data "archive_file" "lambda_zip" {
-  count            = var.module_enabled ? 1 : 0
+  count            = var.enabled ? 1 : 0
   type             = "zip"
   output_file_mode = "0666"
   source_file      = "${path.module}/cloudwatch_slack.py"
@@ -15,7 +15,7 @@ data "archive_file" "lambda_zip" {
 }
 
 resource "random_string" "identifier" {
-  count   = var.module_enabled ? 1 : 0
+  count   = var.enabled ? 1 : 0
   length  = 5
   special = false
   upper   = false
@@ -24,7 +24,7 @@ resource "random_string" "identifier" {
 }
 
 module "this" {
-  count            = var.module_enabled ? 1 : 0
+  count            = var.enabled ? 1 : 0
   source           = "github.com/champ-oss/terraform-aws-lambda.git?ref=v1.0.142-273b055"
   git              = var.git
   name             = "${var.name}-${random_string.identifier[0].result}"
@@ -40,7 +40,7 @@ module "this" {
 }
 
 resource "aws_lambda_permission" "this" {
-  count         = var.module_enabled ? 1 : 0
+  count         = var.enabled ? 1 : 0
   statement_id  = "AllowCloudwatchToSlackTrigger"
   action        = "lambda:InvokeFunction"
   function_name = module.this[0].arn

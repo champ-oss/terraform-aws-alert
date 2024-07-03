@@ -36,8 +36,8 @@ variable "region" {
   default     = "us-east-2"
 }
 
-variable "module_enabled" {
-  description = "enable module"
+variable "enabled" {
+  description = "Set to false to prevent the module from creating any resources"
   type        = bool
   default     = true
 }
