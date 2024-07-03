@@ -64,7 +64,7 @@ output "alert_cloudwatch_log_group" {
   value       = var.enabled ? module.this.cloudwatch_log_group : ""
 }
 
-output "module_enabled" {
+output "enabled" {
   description = "module enabled"
   value       = var.enabled
 }
