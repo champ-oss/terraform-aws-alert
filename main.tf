@@ -27,7 +27,7 @@ module "this" {
   count            = var.module_enabled ? 1 : 0
   source           = "github.com/champ-oss/terraform-aws-lambda.git?ref=v1.0.142-273b055"
   git              = var.git
-  name             = "${var.name}-${random_string.identifier.result}"
+  name             = "${var.name}-${random_string.identifier[0].result}"
   tags             = merge(local.tags, var.tags)
   runtime          = "python3.8"
   handler          = "cloudwatch_slack.lambda_handler"
