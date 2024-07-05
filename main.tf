@@ -14,7 +14,7 @@ data "archive_file" "lambda_zip" {
 }
 
 module "this" {
-  source                = "github.com/champ-oss/terraform-aws-lambda.git?ref=b76aed91532eded4aec27aba0be9f97be75ce912"
+  source                = "github.com/champ-oss/terraform-aws-lambda.git?ref=11415af2651e5e1317df93fca3cf4353f3a7195f"
   git                   = var.git
   name                  = var.name
   tags                  = merge(local.tags, var.tags)
