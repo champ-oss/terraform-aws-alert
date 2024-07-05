@@ -43,7 +43,7 @@ module "this" {
   source         = "../../"
   git            = "terraform-aws-alert"
   log_group_name = aws_cloudwatch_log_group.this.name
-  name           = "terraform-aws-alert"
+  name           = "test"
   slack_url      = var.slack_url
   region         = data.aws_region.this.name
   enabled        = var.enabled
