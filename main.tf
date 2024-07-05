@@ -14,7 +14,7 @@ data "archive_file" "lambda_zip" {
 }
 
 module "this" {
-  source                = "github.com/champ-oss/terraform-aws-lambda.git?ref=11415af2651e5e1317df93fca3cf4353f3a7195f"
+  source                = "github.com/champ-oss/terraform-aws-lambda.git?ref=f904f915728785aa8d90b8e933dcb844a8ccd972"
   git                   = var.git
   name                  = var.name
   tags                  = merge(local.tags, var.tags)
@@ -22,7 +22,6 @@ module "this" {
   handler               = "cloudwatch_slack.lambda_handler"
   filename              = data.archive_file.lambda_zip.output_path
   source_code_hash      = data.archive_file.lambda_zip.output_base64sha256
-  enable_logging_alerts = false
   environment = {
     SLACK_URL = var.slack_url
     REGION    = var.region
