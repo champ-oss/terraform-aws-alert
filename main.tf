@@ -14,7 +14,7 @@ data "archive_file" "lambda_zip" {
 }
 
 module "this" {
-  source                = "github.com/champ-oss/terraform-aws-lambda.git?ref=v1.0.142-273b055"
+  source                = "github.com/champ-oss/terraform-aws-lambda.git?ref=b76aed91532eded4aec27aba0be9f97be75ce912"
   git                   = var.git
   name                  = var.name
   tags                  = merge(local.tags, var.tags)
@@ -27,4 +27,5 @@ module "this" {
     SLACK_URL = var.slack_url
     REGION    = var.region
   }
+  enabled = var.enabled
 }
