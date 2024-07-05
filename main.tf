@@ -19,45 +19,18 @@ moved {
   to   = data.archive_file.lambda_zip[0]
 }
 
-resource "random_string" "identifier" {
-  count   = var.enabled ? 1 : 0
-  length  = 5
-  special = false
-  upper   = false
-  lower   = true
-  numeric = false
-}
-
-moved {
-  from = random_string.identifier
-  to   = random_string.identifier[0]
-}
-
 module "this" {
   source                = "github.com/champ-oss/terraform-aws-lambda.git?ref=v1.0.142-273b055"
   git                   = var.git
-  name                  = "${var.name}-${random_string.identifier[0].result}"
+  name                  = var.name
   tags                  = merge(local.tags, var.tags)
   runtime               = "python3.8"
   handler               = "cloudwatch_slack.lambda_handler"
-  filename              = data.archive_file.lambda_zip[0].output_path
-  source_code_hash      = data.archive_file.lambda_zip[0].output_base64sha256
+  filename              = try(data.archive_file.lambda_zip[0].output_path, "")
+  source_code_hash      = try(data.archive_file.lambda_zip[0].output_base64sha256, "")
   enable_logging_alerts = false
   environment = {
     SLACK_URL = var.slack_url
     REGION    = var.region
   }
-}
-
-resource "aws_lambda_permission" "this" {
-  count         = var.enabled ? 1 : 0
-  statement_id  = "AllowCloudwatchToSlackTrigger"
-  action        = "lambda:InvokeFunction"
-  function_name = module.this.arn
-  principal     = "logs.${var.region}.amazonaws.com"
-}
-
-moved {
-  from = aws_lambda_permission.this
-  to   = aws_lambda_permission.this[0]
 }
