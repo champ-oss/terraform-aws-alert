@@ -5,5 +5,5 @@ output "lambda_function_arn" {
 
 output "cloudwatch_log_group" {
   description = "Alarm name output"
-  value       = var.enabled ? aws_cloudwatch_log_group.this.name : ""
+  value       = var.enabled ? aws_cloudwatch_log_group.this[0].name : ""
 }
