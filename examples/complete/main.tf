@@ -26,7 +26,7 @@ variable "slack_url" {
 variable "enabled" {
   description = "module enabled"
   type        = bool
-  default     = true
+  default     = false
 }
 
 resource "aws_cloudwatch_log_group" "this" {
