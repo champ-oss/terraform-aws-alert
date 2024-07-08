@@ -2,7 +2,7 @@
 resource "aws_iam_role" "this" {
   count              = var.enabled ? 1 : 0
   name               = local.trimmed_name
-  assume_role_policy = data.aws_iam_policy_document.assume_role.json
+  assume_role_policy = data.aws_iam_policy_document.assume_role[0].json
   tags               = merge(local.tags, var.tags)
 
   lifecycle {
@@ -34,7 +34,7 @@ moved {
 
 resource "aws_iam_role_policy_attachment" "ssm" {
   count      = var.enabled ? 1 : 0
-  role       = aws_iam_role.this.name
+  role       = aws_iam_role.this[0].name
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
 }
 
