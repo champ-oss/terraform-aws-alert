@@ -59,6 +59,11 @@ output "cloudwatch_log_stream" {
   value       = var.enabled ? aws_cloudwatch_log_stream.this.name : ""
 }
 
+output "alert_cloudwatch_log_group" {
+  description = "log group name for alert module function"
+  value       = module.this.cloudwatch_log_group
+}
+
 output "enabled" {
   description = "module enabled"
   value       = var.enabled
