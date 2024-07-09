@@ -23,6 +23,12 @@ variable "slack_url" {
   type        = string
 }
 
+variable "enabled" {
+  description = "module enabled"
+  type        = bool
+  default     = true
+}
+
 resource "aws_cloudwatch_log_group" "this" {
   name              = "terraform-aws-alert/test"
   retention_in_days = 5
@@ -37,9 +43,10 @@ module "this" {
   source         = "../../"
   git            = "terraform-aws-alert"
   log_group_name = aws_cloudwatch_log_group.this.name
-  name           = "terraform-aws-alert"
+  name           = "test"
   slack_url      = var.slack_url
   region         = data.aws_region.this.name
+  enabled        = var.enabled
 }
 
 output "cloudwatch_log_group" {
@@ -49,10 +56,15 @@ output "cloudwatch_log_group" {
 
 output "cloudwatch_log_stream" {
   description = "log stream name for test messages"
-  value       = aws_cloudwatch_log_stream.this.name
+  value       = var.enabled ? aws_cloudwatch_log_stream.this.name : ""
 }
 
 output "alert_cloudwatch_log_group" {
   description = "log group name for alert module function"
   value       = module.this.cloudwatch_log_group
+}
+
+output "enabled" {
+  description = "module enabled"
+  value       = var.enabled
 }
