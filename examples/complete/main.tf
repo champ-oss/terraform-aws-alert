@@ -61,7 +61,7 @@ output "cloudwatch_log_stream" {
 
 output "alert_cloudwatch_log_group" {
   description = "log group name for alert module function"
-  value       = module.this.cloudwatch_log_group
+  value       = aws_cloudwatch_log_group.this.name
 }
 
 output "enabled" {
