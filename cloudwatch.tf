@@ -13,7 +13,7 @@ moved {
 
 resource "aws_cloudwatch_log_group" "this" {
   count           = var.enabled ? 1 : 0
-  name              = "/aws/lambda/${var.git}-${var.name}-${random_string.identifier[0].result}}"
+  name              = "/aws/lambda/${var.git}-${var.name}-${random_string.identifier[0].result}"
   retention_in_days = 365
   tags              = merge(local.tags, var.tags)
 
