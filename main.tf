@@ -6,7 +6,7 @@ locals {
     component = try("${var.name}-${random_string.identifier[0].result}", "")
   }
   trimmed_name = substr("${var.git}-${var.name}", 0, 56)
-  name         = try("${local.trimmed_name}-${random_string.identifier[0].result}", "" # 64 character max length
+  name         = try("${local.trimmed_name}-${random_string.identifier[0].result}", "") # 64 character max length
 }
 
 resource "random_string" "identifier" {
