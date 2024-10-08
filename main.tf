@@ -7,7 +7,15 @@ locals {
   }
   trimmed_name = substr("${var.git}-${var.name}", 0, 56)
   name         = try("${local.trimmed_name}-${random_string.identifier[0].result}", "") # 64 character max length
+  image_uri    = "champtitles/aws-alert:${module.hash.hash}"
 }
+
+module "hash" {
+  source   = "github.com/champ-oss/terraform-git-hash.git?ref=v1.0.14-02da677"
+  path     = "${path.module}/.."
+  fallback = ""
+}
+
 
 resource "random_string" "identifier" {
   count   = var.enabled ? 1 : 0
@@ -16,12 +24,6 @@ resource "random_string" "identifier" {
   upper   = false
   lower   = true
   numeric = false
-}
-
-module "hash" {
-  source   = "github.com/champ-oss/terraform-git-hash.git?ref=v1.0.15-cd75e35"
-  path     = path.module
-  fallback = ""
 }
 
 moved {

@@ -2,10 +2,9 @@ resource "aws_lambda_function" "this" {
   count                          = var.enabled ? 1 : 0
   function_name                  = local.name
   role                           = aws_iam_role.this[0].arn
-  sync_image                     = true
-  sync_source_repo               = "champtitles/aws-alert"
   handler                        = "cloudwatch_slack.lambda_handler"
-  ecr_tag                        = module.hash.hash
+  package_type                   = "Image"
+  image_uri                      = local.image_uri
   runtime                        = "python3.12"
   memory_size                    = 128
   timeout                        = 30
@@ -44,4 +43,3 @@ moved {
   from = aws_lambda_permission.this
   to   = aws_lambda_permission.this[0]
 }
-
