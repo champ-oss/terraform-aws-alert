@@ -18,6 +18,12 @@ resource "random_string" "identifier" {
   numeric = false
 }
 
+module "hash" {
+  source   = "github.com/champ-oss/terraform-git-hash.git?ref=v1.0.15-cd75e35"
+  path     = path.module
+  fallback = ""
+}
+
 moved {
   from = random_string.identifier
   to   = random_string.identifier[0]

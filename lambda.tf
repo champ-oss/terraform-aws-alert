@@ -2,11 +2,11 @@ resource "aws_lambda_function" "this" {
   count                          = var.enabled ? 1 : 0
   function_name                  = local.name
   role                           = aws_iam_role.this[0].arn
-  package_type                   = "Zip"
-  filename                       = data.archive_file.lambda_zip[0].output_path
+  sync_image                     = true
+  sync_source_repo               = "champtitles/aws-alert"
   handler                        = "cloudwatch_slack.lambda_handler"
-  source_code_hash               = data.archive_file.lambda_zip[0].output_base64sha256
-  runtime                        = "python3.8"
+  ecr_tag                        = module.hash.hash
+  runtime                        = "python3.12"
   memory_size                    = 128
   timeout                        = 30
   description                    = "Lambda function to send CloudWatch alarms to Slack"
