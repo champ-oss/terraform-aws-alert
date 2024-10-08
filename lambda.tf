@@ -9,7 +9,7 @@ resource "aws_lambda_function" "this" {
   runtime                        = "python3.12"
   memory_size                    = 128
   timeout                        = 30
-  description                    = "Lambda function to send CloudWatch alarms to Slack"
+  description                    = "Lambda function to send CloudWatch alarms to Slack channel"
   reserved_concurrent_executions = -1
   tags                           = merge(local.tags, var.tags)
   lifecycle {
