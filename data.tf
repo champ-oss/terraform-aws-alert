@@ -1,8 +1,9 @@
 data "archive_file" "lambda_zip" {
-  count       = var.enabled ? 1 : 0
-  type        = "zip"
-  source_dir  = "${path.module}/alert"
-  output_path = "${path.module}/alert/cloudwatch_slack.zip"
+  count            = var.enabled ? 1 : 0
+  type             = "zip"
+  output_file_mode = "0666"
+  source_file      = "${path.module}/cloudwatch_slack.py"
+  output_path      = "${path.module}/cloudwatch_slack.zip"
 }
 
 moved {
