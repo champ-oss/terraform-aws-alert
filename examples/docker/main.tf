@@ -30,12 +30,12 @@ variable "enabled" {
 }
 
 resource "aws_cloudwatch_log_group" "this" {
-  name              = "terraform-aws-alert/test"
+  name              = "terraform-aws-alert/docker"
   retention_in_days = 5
 }
 
 resource "aws_cloudwatch_log_stream" "this" {
-  name           = "Test"
+  name           = "Docker"
   log_group_name = aws_cloudwatch_log_group.this.name
 }
 
