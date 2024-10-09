@@ -3,7 +3,7 @@ resource "aws_lambda_function" "this" {
   function_name                  = local.name
   role                           = aws_iam_role.this[0].arn
   package_type                   = var.package_type
-  image_uri                     = var.package_type == "Image" ? var.image_uri : null
+  image_uri                      = var.package_type == "Image" ? var.image_uri : null
   filename                       = var.package_type == "Zip" ? data.archive_file.lambda_zip[0].output_path : null
   handler                        = var.package_type == "Zip" ? "cloudwatch_slack.lambda_handler" : null
   source_code_hash               = var.package_type == "Zip" ? data.archive_file.lambda_zip[0].output_base64sha256 : null
