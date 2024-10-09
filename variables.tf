@@ -41,3 +41,14 @@ variable "enabled" {
   type        = bool
   default     = true
 }
+
+variable "package_type" {
+  description = "The Lambda deployment package type. Valid values: Zip, Image"
+    type        = string
+    default     = "Zip"
+}
+
+variable "image_uri" {
+  description = "The URI of the container image that contains your function code"
+  type        = string
+}

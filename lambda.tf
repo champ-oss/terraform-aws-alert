@@ -2,11 +2,12 @@ resource "aws_lambda_function" "this" {
   count                          = var.enabled ? 1 : 0
   function_name                  = local.name
   role                           = aws_iam_role.this[0].arn
-  package_type                   = "Zip"
-  filename                       = data.archive_file.lambda_zip[0].output_path
-  handler                        = "cloudwatch_slack.lambda_handler"
-  source_code_hash               = data.archive_file.lambda_zip[0].output_base64sha256
-  runtime                        = "python3.8"
+  package_type                   = var.package_type
+  image_uri                     = var.package_type == "Image" ? var.image_uri : null
+  filename                       = var.package_type == "Zip" ? data.archive_file.lambda_zip[0].output_path : null
+  handler                        = var.package_type == "Zip" ? "cloudwatch_slack.lambda_handler" : null
+  source_code_hash               = var.package_type == "Zip" ? data.archive_file.lambda_zip[0].output_base64sha256 : null
+  runtime                        = var.package_type == "Zip" ? "python3.12" : null
   memory_size                    = 128
   timeout                        = 30
   description                    = "Lambda function to send CloudWatch alarms to Slack"
@@ -14,7 +15,6 @@ resource "aws_lambda_function" "this" {
   tags                           = merge(local.tags, var.tags)
   lifecycle {
     ignore_changes = [
-      filename,
       function_name,
       last_modified
     ]
@@ -44,4 +44,3 @@ moved {
   from = aws_lambda_permission.this
   to   = aws_lambda_permission.this[0]
 }
-
