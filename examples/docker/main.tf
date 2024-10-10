@@ -47,14 +47,8 @@ module "this" {
   slack_url      = var.slack_url
   region         = data.aws_region.this.name
   package_type   = "Image"
-  image_uri     = "912455136424.dkr.ecr.us-east-2.amazonaws.com/terraform-aws-alert:${module.hash.hash}"
+  image_uri     = "912455136424.dkr.ecr.us-east-2.amazonaws.com/terraform-aws-alert:latest"
   enabled        = var.enabled
-}
-
-module "hash" {
-  source   = "github.com/champ-oss/terraform-git-hash.git?ref=v1.0.15-cd75e35"
-  path     = path.module
-  fallback = ""
 }
 
 output "cloudwatch_log_group" {
