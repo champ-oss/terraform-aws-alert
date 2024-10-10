@@ -46,14 +46,9 @@ module "this" {
   name           = "docker"
   slack_url      = var.slack_url
   region         = data.aws_region.this.name
-  image_uri     = "912455136424.dkr.ecr.us-east-2.amazonaws.com/terraform-aws-alert:${module.hash.hash}"
+  package_type   = "Image"
+  image_uri     = "912455136424.dkr.ecr.us-east-2.amazonaws.com/terraform-aws-alert:fe99ebb3d2ad126339fc9a2f1a806d498ac8423e"
   enabled        = var.enabled
-}
-
-module "hash" {
-  source   = "github.com/champ-oss/terraform-git-hash.git?ref=v1.0.15-cd75e35"
-  path     = path.module
-  fallback = ""
 }
 
 output "cloudwatch_log_group" {
