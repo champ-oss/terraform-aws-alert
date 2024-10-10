@@ -47,7 +47,7 @@ module "this" {
   slack_url      = var.slack_url
   region         = data.aws_region.this.name
   package_type   = "Image"
-  image_uri     = "912455136424.dkr.ecr.us-east-2.amazonaws.com/terraform-aws-alert:latest"
+  image_uri     = "912455136424.dkr.ecr.us-east-2.amazonaws.com/terraform-aws-alert:fe99ebb3d2ad126339fc9a2f1a806d498ac8423e"
   enabled        = var.enabled
 }
 
