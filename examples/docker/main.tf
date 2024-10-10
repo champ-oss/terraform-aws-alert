@@ -46,6 +46,7 @@ module "this" {
   name           = "docker"
   slack_url      = var.slack_url
   region         = data.aws_region.this.name
+  package_type   = "Image"
   image_uri     = "912455136424.dkr.ecr.us-east-2.amazonaws.com/terraform-aws-alert:${module.hash.hash}"
   enabled        = var.enabled
 }
