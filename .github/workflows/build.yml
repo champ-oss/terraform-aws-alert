@@ -20,9 +20,10 @@ env:
                     "ec2.amazonaws.com",
                     "lambda.amazonaws.com"
                   ],
-                  "AWS": [
-                    "arn:aws:iam::503954333251:root"
-                  ]
+                "Condition": {
+                  "ForAnyValue:StringLike": {
+                    "aws:PrincipalOrgPaths": "o-685w7eamma/*"
+                  }
                 },
                 "Action": [
                   "ecr:BatchCheckLayerAvailability",
