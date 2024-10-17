@@ -10,55 +10,55 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   REPO: 912455136424.dkr.ecr.us-east-2.amazonaws.com/terraform-aws-alert
   ECR_POLICY: '{
-            "Version": "2012-10-17",
-            "Statement": [
-              {
-                "Sid": "retrievalpolicy",
-                "Effect": "Allow",
-                "Principal": {
-                  "Service": [
-                    "lambda.amazonaws.com"
-                  ],
-                  "AWS": [
-                    "*"
-                  ]
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Sid": "production-access",
+                  "Effect": "Allow",
+                  "Principal": {
+                    "Service": [
+                      "ec2.amazonaws.com",
+                      "lambda.amazonaws.com"
+                    ],
+                    "AWS": ["*"]
+                  },
                   "Action": [
-                  "ecr:BatchCheckLayerAvailability",
-                  "ecr:BatchGetImage",
-                  "ecr:DescribeImages",
-                  "ecr:DescribeRepositories",
-                  "ecr:GetDownloadUrlForLayer",
-                  "ecr:GetLifecyclePolicy",
-                  "ecr:GetLifecyclePolicyPreview",
-                  "ecr:GetRepositoryPolicy",
-                  "ecr:ListImages"
-                ]
-              },
-              {
-                "Sid": "org-access",
-                "Effect": "Allow",
-                "Principal": {
-                    "AWS": "*"
+                    "ecr:BatchCheckLayerAvailability",
+                    "ecr:BatchGetImage",
+                    "ecr:DescribeImages",
+                    "ecr:DescribeRepositories",
+                    "ecr:GetDownloadUrlForLayer",
+                    "ecr:GetLifecyclePolicy",
+                    "ecr:GetLifecyclePolicyPreview",
+                    "ecr:GetRepositoryPolicy",
+                    "ecr:ListImages"
+                  ]
                 },
-                "Action": [
-                  "ecr:BatchCheckLayerAvailability",
-                  "ecr:BatchGetImage",
-                  "ecr:DescribeImages",
-                  "ecr:DescribeRepositories",
-                  "ecr:GetDownloadUrlForLayer",
-                  "ecr:GetLifecyclePolicy",
-                  "ecr:GetLifecyclePolicyPreview",
-                  "ecr:GetRepositoryPolicy",
-                  "ecr:ListImages"
-                ],
-                "Condition": {
-                  "ForAnyValue:StringEquals": {
-                    "aws:PrincipalOrgPaths": "o-685w7eamma"
+                {
+                  "Sid": "org-access",
+                  "Effect": "Allow",
+                  "Principal": {
+                    "AWS": "*"
+                  },
+                  "Action": [
+                    "ecr:BatchCheckLayerAvailability",
+                    "ecr:BatchGetImage",
+                    "ecr:DescribeImages",
+                    "ecr:DescribeRepositories",
+                    "ecr:GetDownloadUrlForLayer",
+                    "ecr:GetLifecyclePolicy",
+                    "ecr:GetLifecyclePolicyPreview",
+                    "ecr:GetRepositoryPolicy",
+                    "ecr:ListImages"
+                  ],
+                  "Condition": {
+                    "ForAnyValue:StringLike": {
+                      "aws:PrincipalOrgPaths": "o-685w7eamma/*"
+                    }
                   }
                 }
-              }
-            ]
-          }'
+              ]
+            }'
 
 defaults:
   run:
