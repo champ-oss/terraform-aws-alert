@@ -10,33 +10,55 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   REPO: 912455136424.dkr.ecr.us-east-2.amazonaws.com/terraform-aws-alert
   ECR_POLICY: '{
-            "Version": "2012-10-17",
-            "Statement": [
-              {
-                "Sid": "org-access",
-                "Effect": "Allow",
-                "Principal": {
-                  "AWS": "*"
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Sid": "serviceaccess",
+                  "Effect": "Allow",
+                  "Principal": {
+                    "Service": [
+                      "ec2.amazonaws.com",
+                      "lambda.amazonaws.com"
+                    ],
+                    "AWS": ["*"]
+                  },
+                  "Action": [
+                    "ecr:BatchCheckLayerAvailability",
+                    "ecr:BatchGetImage",
+                    "ecr:DescribeImages",
+                    "ecr:DescribeRepositories",
+                    "ecr:GetDownloadUrlForLayer",
+                    "ecr:GetLifecyclePolicy",
+                    "ecr:GetLifecyclePolicyPreview",
+                    "ecr:GetRepositoryPolicy",
+                    "ecr:ListImages"
+                  ]
                 },
-                "Action": [
-                  "ecr:BatchCheckLayerAvailability",
-                  "ecr:BatchGetImage",
-                  "ecr:DescribeImages",
-                  "ecr:DescribeRepositories",
-                  "ecr:GetDownloadUrlForLayer",
-                  "ecr:GetLifecyclePolicy",
-                  "ecr:GetLifecyclePolicyPreview",
-                  "ecr:GetRepositoryPolicy",
-                  "ecr:ListImages"
-                ],
-                "Condition": {
-                  "ForAnyValue:StringLike": {
-                    "aws:PrincipalOrgPaths": "o-685w7eamma/*"
+                {
+                  "Sid": "org-access",
+                  "Effect": "Allow",
+                  "Principal": {
+                    "AWS": "*"
+                  },
+                  "Action": [
+                    "ecr:BatchCheckLayerAvailability",
+                    "ecr:BatchGetImage",
+                    "ecr:DescribeImages",
+                    "ecr:DescribeRepositories",
+                    "ecr:GetDownloadUrlForLayer",
+                    "ecr:GetLifecyclePolicy",
+                    "ecr:GetLifecyclePolicyPreview",
+                    "ecr:GetRepositoryPolicy",
+                    "ecr:ListImages"
+                  ],
+                  "Condition": {
+                    "ForAnyValue:StringLike": {
+                      "aws:PrincipalOrgPaths": "o-685w7eamma/*"
+                    }
                   }
                 }
-              }
-            ]
-          }'
+              ]
+            }'
 
 defaults:
   run:
@@ -55,6 +77,6 @@ jobs:
       - name: Create ECR Repos
         run: |
           aws ecr create-repository --region "$AWS_DEFAULT_REGION" --repository-name terraform-aws-alert || echo "repo already exists"
-          aws ecr set-repository-policy --region "$AWS_DEFAULT_REGION" --repository-name terraform-aws-alert --policy-text "$ECR_POLICY"
+          aws ecr set-repository-policy --region "$AWS_DEFAULT_REGION" --repository-name terraform-aws-alert --policy-text "$ECR_POLICY" || echo "policy already exists"
       - name: docker push
         run: docker push ${REPO}:${GITHUB_SHA}
