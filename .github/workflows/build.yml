@@ -13,10 +13,37 @@ env:
             "Version": "2012-10-17",
             "Statement": [
               {
+                "Sid": "retrievalpolicy",
+                "Effect": "Allow",
+                "Principal": {
+                  "Service": [
+                    "lambda.amazonaws.com"
+                  ],
+                  "AWS": [
+                    "*"
+                  ]
+                  "Action": [
+                  "ecr:BatchCheckLayerAvailability",
+                  "ecr:BatchGetImage",
+                  "ecr:DescribeImages",
+                  "ecr:DescribeRepositories",
+                  "ecr:GetDownloadUrlForLayer",
+                  "ecr:GetLifecyclePolicy",
+                  "ecr:GetLifecyclePolicyPreview",
+                  "ecr:GetRepositoryPolicy",
+                  "ecr:ListImages"
+                ]
+                "Condition": {
+                  "ForAnyValue:StringEquals": {
+                    "aws:PrincipalOrgPaths": "o-685w7eamma"
+                  }
+                }
+              },
+              {
                 "Sid": "org-access",
                 "Effect": "Allow",
                 "Principal": {
-                  "AWS": "*"
+                    "AWS": "*"
                 },
                 "Action": [
                   "ecr:BatchCheckLayerAvailability",
