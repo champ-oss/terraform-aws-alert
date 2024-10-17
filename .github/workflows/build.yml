@@ -13,7 +13,7 @@ env:
               "Version": "2012-10-17",
               "Statement": [
                 {
-                  "Sid": "production-access",
+                  "Sid": "serviceaccess",
                   "Effect": "Allow",
                   "Principal": {
                     "Service": [
