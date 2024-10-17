@@ -33,11 +33,6 @@ env:
                   "ecr:GetRepositoryPolicy",
                   "ecr:ListImages"
                 ]
-                "Condition": {
-                  "ForAnyValue:StringEquals": {
-                    "aws:PrincipalOrgPaths": "o-685w7eamma"
-                  }
-                }
               },
               {
                 "Sid": "org-access",
