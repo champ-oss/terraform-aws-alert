@@ -32,9 +32,9 @@ moved {
   to   = data.aws_iam_policy_document.assume_role[0]
 }
 
-resource "aws_iam_role_policy_attachment" "ssm" {
-  count      = var.enabled ? 1 : 0
-  role       = aws_iam_role.this[0].name
+resource "aws_iam_policy_attachment" "lambda_ssm_policy" {
+  name       = "lambda-ssm-attachment"
+  roles      = [aws_iam_role.this[0].name]
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
 }
 
